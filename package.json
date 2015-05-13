@@ -17,4 +17,12 @@
     "url": "https://github.com/lellimecnar/mean-es6/issues"
   },
   "homepage": "https://github.com/lellimecnar/mean-es6",
+  "dependencies": {
+    "body-parser": "^1.12.4",
+    "change-case": "^2.3.0",
+    "express": "^4.12.3",
+    "glob": "^5.0.6",
+    "mongoose": "^4.0.3",
+    "path": "^0.11.14"
+  }
 }
