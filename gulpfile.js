@@ -1,0 +1,98 @@
+var gulp = require('gulp'),
+	g = require('gulp-load-plugins')(),
+	sync = g.sync(gulp).sync,
+	del = require('del');
+
+gulp.task('clean', function(done) {
+	del('./public', done);
+})
+
+gulp.task('libs', function() {
+	return gulp.src([
+		'angular*/*.min.js',
+		'angular*/*.min.js.map',
+		'angular*/dist/*.min.js',
+		'angular*/dist/*.min.js.map',
+		'systemjs/dist/system.js',
+		'systemjs/dist/system.js.map',
+		'systemjs/node_*/es6-*/dist/*-loader.js',
+		'systemjs/node_*/es6-*/dist/*-loader.js.map'
+	], {
+		cwd: './node_modules'
+	})
+		.pipe(g.flatten())
+		.pipe(gulp.dest('public/libs'))
+		.pipe(g.connect.reload());
+});
+
+gulp.task('js', function() {
+	return gulp.src('**/*.js', {
+		cwd: './src',
+		base: './src'
+	})
+		.pipe(g.babel({
+			stage: 0,
+			modules: 'system',
+			moduleIds: true,
+			getModuleId: function(name) {
+				console.log(name);
+			}
+		}))
+		.pipe(g.uglify())
+		.pipe(gulp.dest('public'))
+		.pipe(g.connect.reload());
+});
+
+gulp.task('html', function() {
+	return gulp.src('**/*.html', {
+		cwd: './src',
+		base: './src'
+	})
+		.pipe(g.inject(gulp.src([
+			'libs/angular.min.js',
+			'libs/*.js'
+		], {
+			read: false,
+			cwd: './public',
+			base: './public'
+		})))
+		.pipe(gulp.dest('public'))
+		.pipe(g.connect.reload());
+});
+
+gulp.task('css', function(done) {
+	g.file('index.styl', '')
+		.pipe(g.stylus({
+			'include css': true,
+			use: require('nib')(),
+			include: [
+				'./node_modules/angular-material'
+			],
+			import: [
+				'nib',
+				'angular-material.css',
+				'./src/**/*.styl',
+			]
+		}))
+		.pipe(gulp.dest('public'))
+		.pipe(g.connect.reload());
+	done();
+});
+
+gulp.task('serve', function() {
+	g.connect.server({
+		port: 8888,
+		root: 'public',
+		livereload: true
+	});
+});
+
+gulp.task('watch', ['serve'], function() {
+	gulp.watch('./src/**/*.js', ['js']);
+	gulp.watch('./src/**/*.styl', ['css']);
+	gulp.watch('./src/**/*.html', ['html']);
+});
+
+gulp.task('build', sync(['clean', 'libs', 'js', 'css', 'html']));
+
+gulp.task('default', sync(['build', 'serve']));

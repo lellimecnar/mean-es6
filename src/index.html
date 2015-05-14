@@ -1,0 +1,20 @@
+<!doctype html>
+<html ng-cloak ng-strict-di ng-controller="AppCtrl as app">
+	<head>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/index.css">
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+		<meta name="viewport" content="initial-scale=1" />
+	</head>
+	<body layout="column">
+		<ng-viewport></ng-viewport>
+
+		<!-- inject:js -->
+		<!-- endinject -->
+		<script>
+			System.import('index').then(function() {
+				angular.bootstrap(document, ['app']);
+			});
+		</script>
+	</body>
+</html>
