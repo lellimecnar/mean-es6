@@ -1,6 +1,6 @@
-import { HomeCtrl } from 'app/home/home';
+import { HomeController } from 'components/home/home';
 
-export class AppCtrl {
+export class AppController {
 
 	static $inject = ['$router'];
 	constructor($router) {
@@ -20,18 +20,5 @@ angular.module('app', [
 	'ngMaterial'
 ])
 
-.config([
-	'$componentLoaderProvider',
-function($componentLoaderProvider) {
-	$componentLoaderProvider
-		.setCtrlNameMapping(function (name) {
-			return name.charAt(0).toUpperCase() + name.slice(1) + 'Ctrl';
-		})
-		.setTemplateMapping(function(name) {
-			name = ['app', name, name.split('/').pop()].join('/');
-			return name + '.html';
-		});
-}])
-
-.controller('AppCtrl', AppCtrl)
-.controller('HomeCtrl', HomeCtrl);
+.controller('AppController', AppController)
+.controller('HomeController', HomeController);

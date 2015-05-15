@@ -10,9 +10,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-lazyRest(app, {
-	db: db
-});
+lazyRest(app, db);
 
 var server = app.listen(8080, function () {
   console.log('Listening at http://localhost:8080');

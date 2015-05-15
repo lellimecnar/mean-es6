@@ -45,10 +45,7 @@ gulp.task('js', function() {
 		.pipe(g.babel({
 			stage: 0,
 			modules: 'system',
-			moduleIds: true,
-			getModuleId: function(name) {
-				console.log(name);
-			}
+			moduleIds: true
 		}))
 		.pipe(g.uglify())
 		.pipe(gulp.dest('public'))
