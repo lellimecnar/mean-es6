@@ -7,7 +7,19 @@ gulp.task('clean', function(done) {
 	del('./public', done);
 })
 
-gulp.task('libs', function() {
+gulp.task('icons', function() {
+	return gulp.src([
+		'./node_modules/material-design-icons/*/svg/production/ic_*_48px.svg'
+	])
+		.pipe(g.flatten())
+		.pipe(g.rename(function(path) {
+			path.basename = path.basename.match(/^ic_(.+)_48px/)[1];
+		}))
+		.pipe(gulp.dest('public/ico'))
+		.pipe(g.connect.reload());
+});
+
+gulp.task('libs', ['icons'], function() {
 	return gulp.src([
 		'angular*/*.min.js',
 		'angular*/*.min.js.map',

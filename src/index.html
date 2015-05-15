@@ -7,7 +7,26 @@
 		<meta name="viewport" content="initial-scale=1" />
 	</head>
 	<body layout="column">
-		<ng-viewport></ng-viewport>
+		<md-content>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Settings">
+					<md-icon md-svg-icon="ico/menu.svg"></md-icon>
+				</md-button>
+				<h2>
+					<span>Toolbar with Icon Buttons</span>
+				</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" aria-label="Favorite">
+					<md-icon md-svg-icon="ico/favorite.svg"></md-icon>
+				</md-button>
+				<md-button class="md-icon-button" aria-label="More">
+					<md-icon md-svg-icon="ico/more_vert.svg"></md-icon>
+				</md-button>
+				</div>
+			</md-toolbar>
+			<ng-viewport></ng-viewport>
+		</md-content>
 
 		<!-- inject:js -->
 		<!-- endinject -->
