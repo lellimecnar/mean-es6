@@ -1,9 +1,4 @@
-module.exports.schema = {
-	name: String,
-	date: Date
-};
-
-module.exports.params = {
+module.exports = {
 	testId: function(req, res, next, val, model, db) {
 		model.findById(val, function(err, item) {
 			if (!err) {
