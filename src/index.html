@@ -6,27 +6,28 @@
 		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 		<meta name="viewport" content="initial-scale=1" />
 	</head>
-	<body layout="column">
-		<md-content>
+	<body ng-class="$route.name">
+		<section layout="column" flex layout-fill>
 			<md-toolbar>
 				<div class="md-toolbar-tools">
-				<md-button class="md-icon-button" aria-label="Settings">
-					<md-icon md-svg-icon="ico/menu.svg"></md-icon>
-				</md-button>
-				<h2>
-					<span>Toolbar with Icon Buttons</span>
-				</h2>
-				<span flex></span>
-				<md-button class="md-icon-button" aria-label="Favorite">
-					<md-icon md-svg-icon="ico/favorite.svg"></md-icon>
-				</md-button>
-				<md-button class="md-icon-button" aria-label="More">
-					<md-icon md-svg-icon="ico/more_vert.svg"></md-icon>
-				</md-button>
+					<md-button class="md-icon-button" aria-label="{{$route.controller.nav.label}}" ng-click="$route.controller.nav.click()">
+						<md-icon md-svg-icon="ico/{{$route.controller.nav.icon}}.svg"></md-icon>
+					</md-button>
+					<h2>
+						<span>{{$route.controller.title}}</span>
+					</h2>
+					<span flex></span>
+					<md-button class="md-icon-button" aria-label="{{ico.label}}" ng-click="ico.click()" ng-repeat="ico in $route.controller.actions">
+						<md-icon ng-if="ico.icon" md-svg-icon="ico/{{ico.icon}}.svg"></md-icon>
+						<span ng-if="!ico.icon">{{ico.label}}</span>
+					</md-button>
 				</div>
 			</md-toolbar>
-			<ng-viewport></ng-viewport>
-		</md-content>
+			<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+				<md-content layout="column" ng-viewport="sidenav"></md-content>
+			</md-sidenav>
+			<md-content ng-viewport flex layout-padding layout-fill></md-content>
+		</section>
 
 		<!-- inject:js -->
 		<!-- endinject -->

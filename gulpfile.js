@@ -1,7 +1,12 @@
 var gulp = require('gulp'),
 	g = require('gulp-load-plugins')(),
 	sync = g.sync(gulp).sync,
-	del = require('del');
+	del = require('del'),
+	glob = require('glob'),
+	fs = require('fs'),
+	path = require('path'),
+	replaceExt = require('replace-ext'),
+	changeCase = require('change-case');
 
 gulp.task('clean', function(done) {
 	del('./public', done);
@@ -47,7 +52,7 @@ gulp.task('js', function() {
 			modules: 'system',
 			moduleIds: true
 		}))
-		.pipe(g.uglify())
+		// .pipe(g.uglify())
 		.pipe(gulp.dest('public'))
 		.pipe(g.connect.reload());
 });
@@ -80,7 +85,7 @@ gulp.task('css', function(done) {
 			import: [
 				'nib',
 				'angular-material.css',
-				'./src/**/*.styl',
+				'./src/**/*.styl'
 			]
 		}))
 		.pipe(gulp.dest('public'))

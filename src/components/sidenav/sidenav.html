@@ -1,0 +1,6 @@
+<md-subheader class="md-no-sticky">Clickable Items with Secondary Controls</md-subheader>
+<md-list-item ng-click="app.nav(item.route, $event)" ng-repeat="item in sidenav.menuItems">
+	<md-icon md-svg-icon="ico/{{item.icon}}.svg"></md-icon>
+	<p> {{ item.name }} </p>
+</md-list-item>
+<md-divider></md-divider>
