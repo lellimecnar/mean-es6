@@ -33,7 +33,9 @@
 		<!-- endinject -->
 		<script>
 			System.import('index').then(function() {
-				angular.bootstrap(document, ['app']);
+				angular.element(document).ready(function() {
+					angular.bootstrap(document, ['app']);
+				});
 			});
 		</script>
 	</body>

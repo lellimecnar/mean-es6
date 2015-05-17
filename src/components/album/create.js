@@ -1,5 +1,6 @@
 export class AlbumCreateController {
 	title = 'New Album';
+
 	nav = {
 		label: 'Cancel',
 		icon: 'close',
@@ -13,15 +14,31 @@ export class AlbumCreateController {
 		}
 	];
 
-	static $inject = ['$rootScope', '$router'];
-	constructor($rootScope, $router) {
-		this.$rootScope = $rootScope;
-		this.$router = $router;
+	formData = {
+		title: ''
+	};
+
+	static $inject = [];
+	constructor() {
 	}
 
+	// activate = [function() {
+	// }]
+
 	save() {
-		console.log('Saved');
-		this.close();
+		this.submit();
+		// console.log(this.$scope.album_create_form);
+		// console.log(this.formData);
+		// this.$scope.album_create_form.$setSubmitted(true);
+	}
+
+	submit() {
+		if (this.$scope.album_create_form.$valid) {
+			console.log(this.formData);
+			this.close();
+		} else {
+
+		}
 	}
 
 	cancel() {
