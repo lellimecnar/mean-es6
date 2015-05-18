@@ -5,6 +5,8 @@ import * as PhotoComponent from 'components/photo/photo';
 import * as SidenavComponent from 'components/sidenav/sidenav';
 import * as AlbumComponent from 'components/album/album';
 
+import * as Directives from 'util/directives';
+
 var app = angular.module('app', [
 	'ngNewRouter',
 	'ngAnimate',
@@ -78,3 +80,9 @@ function($componentLoaderProvider) {
 });
 
 app.controller('AppController', AppController);
+
+window.$injector = angular.injector(['ng', 'app']);
+
+angular.forEach(Directives, function(directiveFactory, name) {
+	app.directive(directiveFactory.$selector, directiveFactory);
+});

@@ -1,32 +1,10 @@
-export class AppController {
+import { $routeConfig } from './routes';
 
-	$routeConfig = [
-		{
-			path: '/',
-			components: {
-				default: 'photo_list',
-				sidenav: 'sidenav'
-			}
-		},
-		{
-			path: '/albums',
-			components: {
-				default: 'album_list',
-				sidenav: 'sidenav'
-			}
-		},
-		{
-			path: '/album/create',
-			components: {
-				default: 'album_create',
-				sidenav: 'sidenav'
-			}
-		}
-	];
+export class AppController {
 
 	static $inject = ['$rootScope','$router', '$location', '$mdUtil', '$mdSidenav', '$controller'];
 	constructor($rootScope, $router, $location, $mdUtil, $mdSidenav, $controller) {
-		$router.config(this.$routeConfig);
+		$router.config($routeConfig);
 
 		this.$mdSidenav = $mdSidenav;
 		this.$mdUtil = $mdUtil;

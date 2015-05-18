@@ -21,7 +21,6 @@ gulp.task('icons', function() {
 			path.basename = path.basename.match(/^ic_(.+)_48px/)[1];
 		}))
 		.pipe(gulp.dest('public/ico'))
-		.pipe(g.connect.reload());
 });
 
 gulp.task('libs', ['icons'], function() {
@@ -39,7 +38,6 @@ gulp.task('libs', ['icons'], function() {
 	})
 		.pipe(g.flatten())
 		.pipe(gulp.dest('public/libs'))
-		.pipe(g.connect.reload());
 });
 
 gulp.task('js', function() {
@@ -54,7 +52,6 @@ gulp.task('js', function() {
 		}))
 		// .pipe(g.uglify())
 		.pipe(gulp.dest('public'))
-		.pipe(g.connect.reload());
 });
 
 gulp.task('html', function() {
@@ -71,7 +68,6 @@ gulp.task('html', function() {
 			base: './public'
 		})))
 		.pipe(gulp.dest('public'))
-		.pipe(g.connect.reload());
 });
 
 gulp.task('css', function(done) {
@@ -89,7 +85,6 @@ gulp.task('css', function(done) {
 			]
 		}))
 		.pipe(gulp.dest('public'))
-		.pipe(g.connect.reload());
 	done();
 });
 
