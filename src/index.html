@@ -11,7 +11,7 @@
 			<md-toolbar>
 				<div class="md-toolbar-tools">
 					<md-button class="md-icon-button" aria-label="{{$route.controller.nav.label}}" ng-click="$route.controller.nav.click()">
-						<md-icon md-svg-icon="ico/{{$route.controller.nav.icon}}.svg"></md-icon>
+						<md-icon ng-if="$route.controller.nav.icon" md-svg-icon="ico/{{$route.controller.nav.icon}}.svg"></md-icon>
 					</md-button>
 					<h2>
 						<span>{{$route.controller.title}}</span>

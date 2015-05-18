@@ -93,18 +93,20 @@ gulp.task('css', function(done) {
 	done();
 });
 
-gulp.task('serve', function() {
-	g.connect.server({
-		port: 8888,
-		root: 'public',
-		livereload: true
-	});
+gulp.task('serve', function(done) {
+	g.express.run(['./index.js']);
+
+	done();
 });
 
-gulp.task('watch', ['serve'], function() {
+gulp.task('watch', ['serve'], function(done) {
 	gulp.watch('./src/**/*.js', ['js']);
 	gulp.watch('./src/**/*.styl', ['css']);
 	gulp.watch('./src/**/*.html', ['html']);
+
+	gulp.watch('./public/**/*', g.express.notify);
+
+	done();
 });
 
 gulp.task('build', sync(['clean', 'libs', 'js', 'css', 'html']));

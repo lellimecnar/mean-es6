@@ -1,3 +1,5 @@
+import * as ApiService from 'services/api/api';
+
 import { AppController } from 'components/app/app';
 import * as PhotoComponent from 'components/photo/photo';
 import * as SidenavComponent from 'components/sidenav/sidenav';
@@ -7,7 +9,8 @@ var app = angular.module('app', [
 	'ngNewRouter',
 	'ngAnimate',
 	'ngAria',
-	'ngMaterial'
+	'ngMaterial',
+	'ngResource'
 ])
 
 .config([
@@ -27,9 +30,17 @@ function($componentLoaderProvider) {
 
 			return 'components/' + name + '.html';
 		});
-}])
+}]);
 
-.controller('AppController', AppController);
+[
+	ApiService
+].forEach(function(services) {
+	Object.keys(services).forEach(function(serviceName) {
+		var service = services[serviceName];
+
+		app.service(serviceName, service);
+	})
+});
 
 [
 	PhotoComponent,
@@ -65,3 +76,5 @@ function($componentLoaderProvider) {
 		app.controller(controllerName, controller);
 	});
 });
+
+app.controller('AppController', AppController);
