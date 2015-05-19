@@ -18,24 +18,20 @@ export class AlbumCreateController {
 		title: ''
 	};
 
-	static $inject = [];
-	constructor() {
+	static $inject = ['Api'];
+	constructor(Api) {
+		this.Api = Api;
 	}
-
-	// activate = [function() {
-	// }]
 
 	save() {
 		this.submit();
-		// console.log(this.$scope.album_create_form);
-		// console.log(this.formData);
-		// this.$scope.album_create_form.$setSubmitted(true);
 	}
 
 	submit() {
 		if (this.$scope.album_create_form.$valid) {
-			console.log(this.formData);
-			this.close();
+			this.Api.Albums.save(this.formData, (result) => {
+				this.close();
+			});
 		} else {
 
 		}

@@ -1,1 +1,0 @@
-export { PhotoListController } from './list';

@@ -9,9 +9,9 @@ module.exports = function(req, res, next) {
 
 		Photo.create(photo, function(err, data) {
 			if (!err) {
-				res.json({msg: 'Successfully created!', data: data});
+				res.json(data);
 			} else {
-				res.json({msg: 'Error!', data: err});
+				res.json(err);
 			}
 		});
 	}

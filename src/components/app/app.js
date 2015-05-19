@@ -1,5 +1,15 @@
 import { $routeConfig } from './routes';
 
+export { AppConfig } from './config';
+
+export var AppDependencies = [
+	'ngNewRouter',
+	'ngAnimate',
+	'ngAria',
+	'ngMaterial',
+	'ngResource'
+];
+
 export class AppController {
 
 	static $inject = ['$rootScope','$router', '$location', '$mdUtil', '$mdSidenav', '$controller'];

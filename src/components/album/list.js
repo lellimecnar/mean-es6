@@ -1,8 +1,14 @@
 export class AlbumListController {
-	title:String = 'Albums';
+	title: String = 'Albums';
 
-	static $inject = ['$rootScope'];
-	constructor($rootScope) {
-		
+	tiles: Array = [];
+
+	static $inject = ['Api'];
+	constructor(Api) {
+		Api.Albums.query((result) => {
+			angular.forEach(result, (album) => {
+				this.tiles.push(album);
+			});
+		});
 	}
 }

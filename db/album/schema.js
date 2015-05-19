@@ -2,21 +2,17 @@ var Mongoose = require('mongoose');
 
 module.exports = {
 	title: String,
-	album: {
+	description: {
+		type: String,
+		default: ''
+	},
+	cover: {
 		type: Mongoose.Schema.ObjectId,
-		ref: 'album',
+		ref: 'photo',
 		default: null
 	},
 	created: {
 		type: Date,
 		default: Date.now
-	},
-	file: {
-		size: Number,
-		extension: String,
-		path: String,
-		mimetype: String,
-		name: String,
-		originalname: String
 	}
 };

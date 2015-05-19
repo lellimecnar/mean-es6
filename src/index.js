@@ -1,88 +1,41 @@
-import * as ApiService from 'services/api/api';
-
-import { AppController } from 'components/app/app';
-import * as PhotoComponent from 'components/photo/photo';
-import * as SidenavComponent from 'components/sidenav/sidenav';
-import * as AlbumComponent from 'components/album/album';
-
+import * as Services from 'util/services/services';
+import * as App from 'components/app/app';
+import * as Components from 'components/components';
 import * as Directives from 'util/directives';
 
-var app = angular.module('app', [
-	'ngNewRouter',
-	'ngAnimate',
-	'ngAria',
-	'ngMaterial',
-	'ngResource'
-])
+var app = angular.module('app', App.AppDependencies)
+			.config(App.AppConfig);
 
-.config([
-	'$componentLoaderProvider',
-function($componentLoaderProvider) {
-	$componentLoaderProvider
-		.setCtrlNameMapping(function (name) {
-			return name.split('_').map(function(segment) {
-				return segment.charAt(0).toUpperCase() + segment.slice(1)
-			}).join('') + 'Controller';
-		})
-		.setTemplateMapping(function (name) {
-			name = name.replace('_', '/');
-			if (name.indexOf('/') == -1) {
-				name = [name, name.split('/').pop()].join('/');
-			}
-
-			return 'components/' + name + '.html';
-		});
-}]);
-
-[
-	ApiService
-].forEach(function(services) {
-	Object.keys(services).forEach(function(serviceName) {
-		var service = services[serviceName];
-
-		app.service(serviceName, service);
-	})
+angular.forEach(Services, function(service, name) {
+	app.service(name, service);
 });
 
-[
-	PhotoComponent,
-	SidenavComponent,
-	AlbumComponent
-].forEach(function(component) {
-	Object.keys(component).forEach(function(controllerName) {
-		var controller = component[controllerName];
+angular.forEach(Components, function(controller, name) {
+	activate.$inject = ['$rootScope', '$scope', '$router', '$routeParams', '$location'];
+	function activate($rootScope, $scope, $router, $routeParams, $location) {
+		var $this = this;
 
-		controller.prototype.activate = [
-			'$rootScope',
-			'$scope',
-			'$router',
-			'$routeParams',
-			'$location',
-		function($rootScope, $scope, $router, $routeParams, $location) {
-			var $this = this;
+		this.$rootScope = $rootScope;
+		this.$scope = $scope;
+		this.$router = $router;
+		this.$routeParams = $routeParams;
 
-			this.$rootScope = $rootScope;
-			this.$scope = $scope;
-			this.$router = $router;
-			this.$routeParams = $routeParams;
+		$rootScope.$route = {
+			path: $location.path(),
+			name: $router.name,
+			controller: $this
+		};
 
-			$rootScope.$route = {
-				path: $location.path(),
-				name: $router.name,
-				controller: $this
-			};
+		$rootScope.$broadcast('$routeActivated', $router, $routeParams, this);
+	};
 
-			$rootScope.$broadcast('$routeActivated', $router, $routeParams, this);
-		}];
+	controller.prototype.activate = activate;
 
-		app.controller(controllerName, controller);
-	});
+	app.controller(name, controller);
 });
 
-app.controller('AppController', AppController);
-
-window.$injector = angular.injector(['ng', 'app']);
-
-angular.forEach(Directives, function(directiveFactory, name) {
-	app.directive(directiveFactory.$selector, directiveFactory);
+angular.forEach(Directives, function(directive, name) {
+	app.directive(directive.$selector, directive);
 });
+
+app.controller('AppController', App.AppController);

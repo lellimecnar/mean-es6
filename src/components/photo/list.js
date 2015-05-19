@@ -1,11 +1,12 @@
 export class PhotoListController {
-	title:String = 'Photos';
+	title: String = 'Photos';
+
 	tiles: Array = [];
 
-	static $inject = ['$rootScope', 'Api'];
-	constructor($rootScope, Api) {
+	static $inject = ['Api'];
+	constructor(Api) {
 		Api.Photos.query((result) => {
-			angular.forEach(result.data, (photo) => {
+			angular.forEach(result, (photo) => {
 				photo.file.path = '/files/' + photo.file.path;
 				this.tiles.push(photo);
 			});

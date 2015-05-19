@@ -3,7 +3,11 @@
 		<label>Title</label>
 		<input name="title" ng-model="album_create.formData.title" required/>
 		<div ng-messages="album_create_form.title.$error">
-			<div ng-message="required">This is required.</div>
+			<div ng-message="required" ng-if="album_create_form.title.$error.required">This is required.</div>
 		</div>
+	</md-input-container>
+	<md-input-container>
+		<label>Description</label>
+		<textarea name="description" ng-model="album_create.formData.description"></textarea>
 	</md-input-container>
 </form>

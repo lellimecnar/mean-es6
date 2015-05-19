@@ -1,15 +1,15 @@
 export class SidenavController {
 	menuItems: Array = [
-	{
-		route: '/',
-		icon: 'photo_library',
-		name: 'Photos'
-	},
-	{
-		route: '/albums',
-		icon: 'photo_album',
-		name: 'Albums'
-	}
+		{
+			route: '/albums',
+			icon: 'photo_album',
+			name: 'Albums'
+		},
+		{
+			route: '/photos',
+			icon: 'photo_library',
+			name: 'Photos'
+		}
 	];
 
 	static $inject = ['$router'];
