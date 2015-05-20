@@ -1,0 +1,29 @@
+<md-dialog aria-label="{{album_form.title}}">
+	<form id="albumForm" name="albumForm" novalidate>
+		<md-dialog-content  class="sticky-container">
+			<md-subheader class="md-sticky-no-effect">{{album_form.title}}</md-subheader>
+			<div>
+				<md-input-container>
+					<label>Title</label>
+					<input name="title" ng-model="album_form.formData.title" required/>
+					<div ng-messages="albumForm.title.$error">
+						<div ng-message="required" ng-if="albumForm.title.$error.required">This is required.</div>
+					</div>
+				</md-input-container>
+				<md-input-container>
+					<label>Description</label>
+					<textarea name="description" ng-model="album_form.formData.description"></textarea>
+				</md-input-container>
+			</div>
+		</md-dialog-content>
+		<div class="md-actions" layout="row">
+			<md-button 
+					ng-repeat="action in album_form.actions"
+					ng-disabled="action.disabled()"
+					ng-click="action.click($event)"
+					ng-class="action.class">
+				{{action.label}}
+			</md-button>
+		</div>
+	</form>
+</md-dialog>

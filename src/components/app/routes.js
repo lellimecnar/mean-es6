@@ -11,9 +11,9 @@ export var $routeConfig = [
 		}
 	},
 	{
-		path: '/album/create',
+		path: '/album/:albumId',
 		components: {
-			default: 'album_create',
+			default: 'album_view',
 			sidenav: 'sidenav'
 		}
 	},

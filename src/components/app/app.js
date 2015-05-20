@@ -43,9 +43,13 @@ export class AppController {
 			}
 
 			if (controller.actions) {
-				controller.actions.forEach((action) => {
+				controller.actions.forEach((action, i) => {
 					action.click = action.click.bind(controller);
 				});
+			}
+
+			if (controller.fab && controller.fab.click) {
+				controller.fab.click = controller.fab.click.bind(controller);
 			}
 		});
 	}
@@ -70,7 +74,9 @@ export class AppController {
 		if (this.$router.recognize(url)) {
 			this.closeNav();
 			this.$router.navigate(url);
-			e.preventDefault();
+			if (e) {
+				e.preventDefault();
+			}
 		}
 	}
 

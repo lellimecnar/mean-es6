@@ -6,20 +6,17 @@
 		md-row-height="4:3"
 		md-gutter="8px"
 		md-gutter-gt-sm="4px">
-	<md-grid-tile ng-repeat="tile in album_list.tiles"
+	<md-grid-tile
+			ng-repeat="tile in album_list.tiles"
 			md-rowspan="{{tile.span.row}}"
 			md-colspan="{{tile.span.col}}"
 			md-colspan-sm="1"
-			bg-img="{{ tile.cover.file.path }}">
+			bg-img="{{ tile.cover.file.path }}"
+			ng-click="app.nav('/album/' + tile._id)"
+			ng-class="{'no-bg': !title.cover}">
+		<md-icon ng-if="!tile.cover" md-svg-icon="ico/photo_album.svg"></md-icon>
 		<md-grid-tile-footer>
 			<h3>{{tile.title}}</h3>
 		</md-grid-tile-footer>
 	</md-grid-tile>
 </md-grid-list>
-
-<md-button
-		class="md-fab md-fab-bottom-right"
-		ng-click="app.nav('/album/create', $event)"
-		aria-label="Create Album">
-	<md-icon md-svg-src="ico/add.svg"></md-icon>
-</md-button>

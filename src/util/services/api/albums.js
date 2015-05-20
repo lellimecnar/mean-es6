@@ -5,6 +5,10 @@ export class Albums {
 			get: {
 				method: 'GET',
 				url: URL_PREFIX + 'albums/:id'
+			},
+			update: {
+				method: 'PUT',
+				url: URL_PREFIX + 'albums/:id'
 			}
 		});
 	}

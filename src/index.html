@@ -6,28 +6,39 @@
 		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 		<meta name="viewport" content="initial-scale=1" />
 	</head>
-	<body ng-class="$route.name">
-		<section layout="column" flex layout-fill>
-			<md-toolbar>
-				<div class="md-toolbar-tools">
-					<md-button class="md-icon-button" aria-label="{{$route.controller.nav.label}}" ng-click="$route.controller.nav.click()">
-						<md-icon ng-if="$route.controller.nav.icon" md-svg-icon="ico/{{$route.controller.nav.icon}}.svg"></md-icon>
-					</md-button>
-					<h2>
-						<span>{{$route.controller.title}}</span>
-					</h2>
-					<span flex></span>
-					<md-button class="md-icon-button" aria-label="{{ico.label}}" ng-click="ico.click()" ng-repeat="ico in $route.controller.actions">
-						<md-icon ng-if="ico.icon" md-svg-icon="ico/{{ico.icon}}.svg"></md-icon>
-						<span ng-if="!ico.icon">{{ico.label}}</span>
-					</md-button>
-				</div>
-			</md-toolbar>
-			<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-				<md-content layout="column" ng-viewport="sidenav"></md-content>
-			</md-sidenav>
-			<md-content ng-viewport flex layout-padding layout-fill></md-content>
-		</section>
+	<body ng-class="$route.name" layout="column">
+		<md-toolbar md-scroll-shrink>
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="{{$route.controller.nav.label}}" ng-click="$route.controller.nav.click()">
+					<md-icon ng-if="$route.controller.nav.icon" md-svg-icon="ico/{{$route.controller.nav.icon}}.svg"></md-icon>
+				</md-button>
+				<h2>{{$route.controller.title}}</h2>
+				<span flex></span>
+				<md-button 
+						ng-if="!action.if || action.if()"
+						ng-repeat="action in $route.controller.actions"
+						ng-class="action.class"
+						ng-disabled="action.disabled()"
+						ng-click="action.click($event)"
+						aria-label="{{action.label}}"
+						class="md-icon-button">
+					<md-icon ng-if="action.icon" md-svg-icon="ico/{{action.icon}}.svg"></md-icon>
+					<span ng-if="!action.icon">{{action.label}}</span>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+			<md-content layout="column" ng-viewport="sidenav"></md-content>
+		</md-sidenav>
+		<md-content flex ng-viewport layout-padding></md-content>
+		<md-button
+				ng-if="$route.controller.fab && (!$route.controller.fab.if || $route.controller.fab.if())"
+				ng-class="$route.controller.fab.class"
+				ng-click="$route.controller.fab.click($event)"
+				aria-label="{{$route.controller.fab.label}}"
+				class="md-fab md-fab-bottom-right">
+			<md-icon md-svg-src="ico/{{$route.controller.fab.icon}}.svg"></md-icon>
+		</md-button>
 
 		<!-- inject:js -->
 		<!-- endinject -->
